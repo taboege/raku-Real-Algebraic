@@ -1,0 +1,23 @@
+{
+  "name"                   : "Real::Algebraic",
+  "version"                : "0.0.1",
+  "perl"                   : "6.c",
+  "authors"                : "Tobias Boege",
+  "description"            : "Exact arithmetic on real algebraic numbers",
+  "tags"                   : [ ],
+  "license"                : "Artistic-2.0",
+  "build-depends"          : [
+    "make:from<bin>",
+    "g++:from<bin>",
+    "CGAL:from<native>",
+    "gmp:from<native>",
+    "boost_thread:from<native>"
+  ],
+  "resources"              : [
+    "libra.so"
+  ],
+  "provides"               : {
+    "Real::Algebraic"      : "lib/Real/Algebraic.pm6"
+  },
+  "source-url"             : "git://github.com/taboege/raku-Real-Algebraic.git"
+}
