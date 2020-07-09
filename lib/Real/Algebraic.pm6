@@ -21,6 +21,8 @@ sub ra_sign    (Pointer $r             --> int32)   is native(LIB_RA) { * }
 sub ra_compare (Pointer $r, Pointer $s --> int32)   is native(LIB_RA) { * }
 
 sub ra_approx(Pointer $r, uint32 $ap, uint32 $rp --> Str) is native(LIB_RA) { * }
+sub ra_approx_abs(Pointer $r, uint32 $ap         --> Str) is native(LIB_RA) { * }
+sub ra_approx_rel(Pointer $r,         uint32 $rp --> Str) is native(LIB_RA) { * }
 
 class Real::Algebraic #`(does Real) is export {
     has $.o;
@@ -42,9 +44,9 @@ class Real::Algebraic #`(does Real) is export {
     }
 
     method FatRat ($prec is copy = 1e-10) {
-        # Convert the 1e-10 style $prec argument to the 2^(-$prec)
-        # expected by the library. Ignore the relative precision.
-        my $s = ra_approx($!o, $prec.log(½).ceiling, 1);
+        # Convert the 1e-10 style $prec argument to the
+        # 2^(-$prec) style expected by the library.
+        my $s = ra_approx_abs($!o, $prec.log(½).ceiling);
         my ($nu, $de) = $s.comb(/'-'? \d+/)».Int;
         FatRat.new: $nu, $de // 1
     }
